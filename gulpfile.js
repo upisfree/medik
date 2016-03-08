@@ -1,40 +1,28 @@
 var gulp = require('gulp'),
-    browserify = require('browserify'),
-    source = require('vinyl-source-stream'),
-    buffer = require('vinyl-buffer'),
-    uglify = require('gulp-uglify');
+    uglify = require('gulp-uglify'),
+    coffee = require('gulp-coffee'),
+    concat = require('gulp-concat'),
+    gutil = require('gulp-util');
 
-gulp.task('develop', function()
+
+gulp.task('coffee', function()
 {
-  return browserify(
-  {
-    entries: ['./src/index.coffee'],
-    extensions: ['.coffee']
-  })
-  .transform('coffeeify')
-  .bundle()
-  .pipe(source('dev.js'))
-  .pipe(buffer())
-  .pipe(gulp.dest('./bin'));
+  gulp.src('./src/**/*.coffee')
+      .pipe(coffee({bare: true}).on('error', gutil.log))
+      .pipe(gulp.dest('./bin/'));
 });
 
-gulp.task('min', function() // release
+gulp.task('min', function()
 {
-  return browserify(
-  {
-    entries: ['./src/index.coffee'],
-    extensions: ['.coffee']
-  })
-  .transform('coffeeify')
-  .bundle()
-  .pipe(source('index.js'))
-  .pipe(buffer())
-  .pipe(uglify())
-  .pipe(gulp.dest('.'));
+  gulp.src('./src/**/*.coffee')
+      .pipe(coffee({bare: false}).on('error', gutil.log))
+      .pipe(uglify())
+      .pipe(concat('ms-dev-term.js'))
+      .pipe(gulp.dest('.'));
 });
 
 gulp.task('dev', function() {
-  gulp.watch('./src/**', ['develop']);
+  gulp.watch('./src/**', ['coffee']);
 });
 
 gulp.task('default', ['dev']);
