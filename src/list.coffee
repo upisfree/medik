@@ -2,6 +2,7 @@ fs = require 'fs'
 LocalStorage = require('node-localstorage').LocalStorage
 localStorage = new LocalStorage './localStorage'
 nightmare = require './nightmare.js'
+ooo = require './ooo.js'
 auth = require './auth.js'
 
 loadList = (callback) ->
@@ -22,6 +23,8 @@ loadList = (callback) ->
 printList = (callback) ->
   fs.readFile 'localStorage/apps', (err, data) ->
     if not err
+      ooo.stop()
+
       l = JSON.parse data.toString 'utf-8'
 
       for i in l
@@ -31,6 +34,8 @@ printList = (callback) ->
     else
       loadList ->
         fs.readFile 'localStorage/apps', (err, data) ->
+          ooo.stop()
+
           l = JSON.parse data.toString 'utf-8'
 
           for i in l

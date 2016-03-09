@@ -1,4 +1,4 @@
-delta = 100
+delta = 75
 
 ooo =
   start: ->
@@ -7,6 +7,8 @@ ooo =
     , delta
   stop: ->
     clearInterval ooo._interval
+
+    process.stdout.write '\n'
   step: ->
     if ooo.state > ooo.states.length - 1
       ooo.state = 0
