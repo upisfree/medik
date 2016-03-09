@@ -1,5 +1,5 @@
 # medic
-Simple tool to automate interaction with the Windows Store.
+Manage your Windows apps from command line. Useful for automation or if you afraid GUI.
 
 ## Usage
 #### Get app list

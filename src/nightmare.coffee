@@ -1,6 +1,6 @@
 Nightmare = require 'nightmare'
 nightmare = Nightmare
-  show: true
+  show: false
   paths:
     userData: 'electronCache'
 
