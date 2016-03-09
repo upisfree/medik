@@ -2,8 +2,11 @@ prompt = require 'prompt'
 LocalStorage = require('node-localstorage').LocalStorage
 localStorage = new LocalStorage './localStorage'
 nightmare = require './nightmare.js'
+ooo = require './ooo.js'
 
 first = (email, password, callback) ->
+  ooo.start()
+
   nightmare
     .goto 'https://dev.windows.com'
     .click '.msame_TxtTrunc'
@@ -23,6 +26,8 @@ first = (email, password, callback) ->
       callback()
 
 usual = (email, callback) ->
+  ooo.start()
+
   nightmare
     .goto 'https://dev.windows.com'
     .click '.msame_TxtTrunc'
