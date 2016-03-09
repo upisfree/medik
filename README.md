@@ -2,14 +2,24 @@
 Manage your Windows apps from command line. Useful for automation or if you afraid GUI.
 
 ## Usage
-#### Get app list
+#### Update an app
+```bash
+medic update --id="APP_ID"
+```
+
+#### Print app list
 ```bash
 medic list
 ```
 
-#### Reset medic (remove cache, auth and all settings)
+#### Restore medic to defaults
 ```bash
 medic reset
+```
+
+#### Help
+```bash
+medic help
 ```
 
 ## Install
