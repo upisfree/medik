@@ -21,4 +21,4 @@ switch argv._[0]
       console.log 'Yeah, fresh start!'
   else
     nightmare.end().then ->
-      console.log 'Unknown command! Use help command to solve this.'
+      console.log 'Unknown command! Use \'help\' command to solve this.'
