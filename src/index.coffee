@@ -1,11 +1,16 @@
 argv = require('minimist')(process.argv.slice(2))
 nightmare = require './nightmare.js'
 ooo = require './ooo.js'
-auth = require './auth.js'
 list = require './list.js'
+update = require './update.js'
 reset = require './reset.js'
 
 switch argv._[0]
+  when 'update'
+    ooo.start()
+
+    update argv.id, ->
+      nightmare.end().then ->
   when 'list'
     ooo.start()
 

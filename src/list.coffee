@@ -1,6 +1,4 @@
 fs = require 'fs'
-LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage './localStorage'
 nightmare = require './nightmare.js'
 ooo = require './ooo.js'
 auth = require './auth.js'
