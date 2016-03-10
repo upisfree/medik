@@ -30,6 +30,5 @@ sudo npm install medik -g
 ## Build
 ```bash
 npm install
-gulp # dev
-gulp min # production
+gulp
 ```
