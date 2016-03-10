@@ -5,24 +5,20 @@ update = require './update.js'
 reset = require './reset.js'
 help = require './help.js'
 
-medik = ->
-  switch argv._[0]
-    when 'update'
-      update argv.id, ->
-        nightmare.end().then ->
-    when 'list'
-      list ->
-        nightmare.end().then ->
-    when 'reset'
-      reset ->
-        console.log 'Yeah, fresh start!'
-    when 'help'
-      help()
-
+switch argv._[0]
+  when 'update'
+    update argv.id, ->
       nightmare.end().then ->
-    else
+  when 'list'
+    list ->
       nightmare.end().then ->
-        console.log 'Unknown command! Use \'help\' command to solve this.'
+  when 'reset'
+    reset ->
+      console.log 'Yeah, fresh start!'
+  when 'help'
+    help()
 
-# export
-module.exports = medik
+    nightmare.end().then ->
+  else
+    nightmare.end().then ->
+      console.log 'Unknown command! Use \'help\' command to solve this.'
