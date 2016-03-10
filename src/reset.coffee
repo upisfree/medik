@@ -5,8 +5,8 @@ reset = (callback) ->
   nightmare
     .end()
     .then ->
-      rimraf 'electronCache', ->
-        rimraf 'localStorage', ->
+      rimraf '../tmp/electronCache', ->
+        rimraf '../tmp/localStorage', ->
           callback()
 
 # export

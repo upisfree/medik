@@ -1,30 +1,30 @@
-# medic
+# medik
 Manage your Windows apps from command line. Useful for automation or if you afraid GUI.
 
 ## Usage
 #### Update an app
 ```bash
-medic update --id="APP_ID"
+medik update --id="APP_ID"
 ```
 
 #### Print app list
 ```bash
-medic list
+medik list
 ```
 
-#### Restore medic to defaults
+#### Restore medik to defaults
 ```bash
-medic reset
+medik reset
 ```
 
 #### Help
 ```bash
-medic help
+medik help
 ```
 
 ## Install
 ```bash
-sudo npm install medic -g
+sudo npm install medik -g
 ```
 
 ## Build

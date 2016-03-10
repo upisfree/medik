@@ -3,7 +3,7 @@ help = ->
 Manage your Windows apps from command line.
 
 Usage:
-  medic [command] [options]
+  medik [command] [options]
 
 Commands:
   update, list, reset, help
@@ -12,9 +12,9 @@ Options:
   --id
 
 Examples:
-  medic update --id="APP_ID"  creates new submission of app in the store
-  medic list                  print list of all your apps
-  medic reset                 delete cache and all medic settings
+  medik update --id="APP_ID"  creates new submission of app in the store
+  medik list                  print list of all your apps
+  medik reset                 delete cache and all medik settings
         """
 
   console.log str

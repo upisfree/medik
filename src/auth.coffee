@@ -1,6 +1,6 @@
 prompt = require 'prompt'
 LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage './localStorage'
+localStorage = new LocalStorage '../tmp/localStorage'
 nightmare = require './nightmare.js'
 ooo = require './ooo.js'
 

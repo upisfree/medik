@@ -2,7 +2,7 @@ Nightmare = require 'nightmare'
 nightmare = Nightmare
   show: false
   paths:
-    userData: 'electronCache'
+    userData: '../tmp/electronCache'
 
 nightmare.viewport 1920, 1080
 
