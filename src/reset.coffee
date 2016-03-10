@@ -5,8 +5,8 @@ reset = (callback) ->
   nightmare
     .end()
     .then ->
-      rimraf "#{__dirname}/../tmp/electronCache", ->
-        rimraf "#{__dirname}/../tmp/localStorage", ->
+      rimraf "#{process.env['HOME']}/.medik/electronCache", ->
+        rimraf "#{process.env['HOME']}/.medik/localStorage", ->
           callback()
 
 # export

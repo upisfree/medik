@@ -1,6 +1,6 @@
 prompt = require 'prompt'
 LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage "#{__dirname}/../tmp/localStorage"
+localStorage = new LocalStorage "#{process.env['HOME']}/.medik/localStorage"
 nightmare = require './nightmare.js'
 ooo = require './ooo.js'
 

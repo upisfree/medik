@@ -2,7 +2,7 @@ Nightmare = require 'nightmare'
 nightmare = Nightmare
   show: false
   paths:
-    userData: "#{__dirname}/../tmp/electronCache"
+    userData: "#{process.env['HOME']}/.medik/electronCache"
 
 nightmare.viewport 1920, 1080
 

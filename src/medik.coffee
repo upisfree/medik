@@ -1,3 +1,6 @@
+fs = require 'fs'
+fs.mkdirSync "#{process.env['HOME']}/.medik"
+
 argv = require('minimist')(process.argv.slice(2))
 nightmare = require './nightmare.js'
 list = require './list.js'
