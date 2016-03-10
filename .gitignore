@@ -1,3 +1,5 @@
 Thumbs.db
 node_modules
 lib/*
+tmp/electronCache
+tmp/localStorage

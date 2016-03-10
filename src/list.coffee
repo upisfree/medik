@@ -15,11 +15,11 @@ loadList = (callback) ->
 
       return xhr.responseText
     .then (data) ->
-      fs.writeFile 'localStorage/apps', data, (err) ->
+      fs.writeFile 'tmp/localStorage/apps', data, (err) ->
         callback()
 
 printList = (callback) ->
-  fs.readFile 'localStorage/apps', (err, data) ->
+  fs.readFile 'tmp/localStorage/apps', (err, data) ->
     if not err
       ooo.stop()
 
@@ -31,7 +31,7 @@ printList = (callback) ->
       callback()
     else
       loadList ->
-        fs.readFile 'localStorage/apps', (err, data) ->
+        fs.readFile 'tmp/localStorage/apps', (err, data) ->
           ooo.stop()
 
           l = JSON.parse data.toString 'utf-8'
