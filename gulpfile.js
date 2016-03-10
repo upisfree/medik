@@ -10,5 +10,5 @@ gulp.task('build', function()
 });
 
 gulp.task('default', function() {
-  gulp.watch('./src/**', ['coffee']);
+  gulp.watch('./src/**', ['build']);
 });
