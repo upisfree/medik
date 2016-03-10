@@ -1,6 +1,6 @@
 {
   "name": "medik",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Manage your Windows apps from command line. Useful for automation or if you afraid GUI.",
   "main": "./lib/medik",
   "bin": {

@@ -1,5 +1,11 @@
+# Create tmp directory in user's home if it need
 fs = require 'fs'
-fs.mkdirSync "#{process.env['HOME']}/.medik"
+try
+  fs.statSync "#{process.env['HOME']}/.medik"
+catch e
+  fs.mkdirSync "#{process.env['HOME']}/.medik"
+
+
 
 argv = require('minimist')(process.argv.slice(2))
 nightmare = require './nightmare.js'
