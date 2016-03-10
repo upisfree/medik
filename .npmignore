@@ -1,1 +1,3 @@
 src/
+tmp/electronCache
+tmp/localStorage
