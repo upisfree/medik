@@ -1,12 +1,13 @@
 rimraf = require 'rimraf'
+config = require './config.js'
 nightmare = require './nightmare.js'
 
 reset = (callback) ->
   nightmare
     .end()
     .then ->
-      rimraf "#{process.env['HOME']}/.medik/electronCache", ->
-        rimraf "#{process.env['HOME']}/.medik/localStorage", ->
+      rimraf "#{config.cachePath}/electronCache", ->
+        rimraf "#{config.cachePath}/localStorage", ->
           callback()
 
 # export

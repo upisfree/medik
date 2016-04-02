@@ -1,4 +1,5 @@
 fs = require 'fs'
+config = require './config.js'
 nightmare = require './nightmare.js'
 ooo = require './ooo.js'
 auth = require './auth.js'
@@ -15,11 +16,11 @@ loadList = (callback) ->
 
       return xhr.responseText
     .then (data) ->
-      fs.writeFile "#{process.env['HOME']}/.medik/localStorage/apps", data, (err) ->
+      fs.writeFile "#{config.cachePath}/localStorage/apps", data, (err) ->
         callback()
 
 printList = (callback) ->
-  fs.readFile "#{process.env['HOME']}/.medik/localStorage/apps", (err, data) ->
+  fs.readFile "#{config.cachePath}/localStorage/apps", (err, data) ->
     if not err
       ooo.stop()
 
@@ -31,7 +32,7 @@ printList = (callback) ->
       callback()
     else
       loadList ->
-        fs.readFile "#{process.env['HOME']}/.medik/localStorage/apps", (err, data) ->
+        fs.readFile "#{config.cachePath}/localStorage/apps", (err, data) ->
           ooo.stop()
 
           l = JSON.parse data.toString 'utf-8'

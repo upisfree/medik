@@ -1,9 +1,10 @@
 # Create tmp directory in user's home if it need
+config = require './config.js'
 fs = require 'fs'
 try
-  fs.statSync "#{process.env['HOME']}/.medik"
+  fs.statSync config.cachePath
 catch e
-  fs.mkdirSync "#{process.env['HOME']}/.medik"
+  fs.mkdirSync config.cachePath
 
 
 

@@ -1,8 +1,9 @@
+config = require './config.js'
 Nightmare = require 'nightmare'
 nightmare = Nightmare
-  show: false
+  show: true
   paths:
-    userData: "#{process.env['HOME']}/.medik/electronCache"
+    userData: "#{config.cachePath}/electronCache"
 
 nightmare.viewport 1920, 1080
 
