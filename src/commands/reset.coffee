@@ -1,6 +1,6 @@
 rimraf = require 'rimraf'
-config = require './config.js'
-nightmare = require './nightmare.js'
+config = require '../config'
+nightmare = require '../utils/nightmare'
 
 reset = (callback) ->
   nightmare

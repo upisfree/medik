@@ -1,5 +1,5 @@
 # Create tmp directory in user's home if it need
-config = require './config.js'
+config = require './config'
 fs = require 'fs'
 try
   fs.statSync config.cachePath
@@ -9,11 +9,11 @@ catch e
 
 
 argv = require('minimist')(process.argv.slice(2))
-nightmare = require './nightmare.js'
-list = require './list.js'
-update = require './update.js'
-reset = require './reset.js'
-help = require './help.js'
+nightmare = require './utils/nightmare'
+list = require './commands/list'
+update = require './commands/update'
+reset = require './commands/reset'
+help = require './commands/help'
 
 switch argv._[0]
   when 'update'

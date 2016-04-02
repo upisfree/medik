@@ -1,9 +1,9 @@
 prompt = require 'prompt'
-config = require './config.js'
+config = require './config'
 LocalStorage = require('node-localstorage').LocalStorage
 localStorage = new LocalStorage "#{config.cachePath}/localStorage"
-nightmare = require './nightmare.js'
-ooo = require './ooo.js'
+nightmare = require './utils/nightmare'
+ooo = require './utils/ooo'
 
 first = (email, password, callback) ->
   ooo.start()

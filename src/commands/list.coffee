@@ -1,8 +1,8 @@
 fs = require 'fs'
-config = require './config.js'
-nightmare = require './nightmare.js'
-ooo = require './ooo.js'
-auth = require './auth.js'
+config = require '../config'
+nightmare = require '../utils/nightmare'
+ooo = require '../utils/ooo'
+auth = require '../auth'
 
 loadList = (callback) ->
   nightmare

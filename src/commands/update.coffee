@@ -1,6 +1,6 @@
-nightmare = require './nightmare.js'
-ooo = require './ooo.js'
-auth = require './auth.js'
+nightmare = require '../utils/nightmare'
+ooo = require '../utils/ooo'
+auth = require '../auth'
 
 updateApp = (id, callback) ->
   nightmare

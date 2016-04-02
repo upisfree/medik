@@ -1,4 +1,4 @@
-config = require './config.js'
+config = require '../config'
 Nightmare = require 'nightmare'
 nightmare = Nightmare
   show: true
