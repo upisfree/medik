@@ -1,5 +1,5 @@
 config =
-  cachePath: "#{process.env['HOME']}/.medik"
+  tmpPath: "#{process.env['HOME']}/.medik"
 
 # export
 module.exports = config
