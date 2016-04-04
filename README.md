@@ -32,3 +32,6 @@ sudo npm install medik -g
 npm install
 gulp
 ```
+
+### Little bit about headless usage
+[Here!](https://github.com/segmentio/nightmare/issues/534)

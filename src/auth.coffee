@@ -1,12 +1,9 @@
 prompt = require 'prompt'
 config = require './config'
-LocalStorage = require('node-localstorage').LocalStorage
-localStorage = new LocalStorage "#{config.tmpPath}/localStorage"
+cache = require './utils/cache'
 nightmare = require './utils/nightmare'
 
 first = (email, password, callback) ->
-  ooo.start()
-
   nightmare
     .goto 'https://dev.windows.com'
     .click '.msame_TxtTrunc'
@@ -20,14 +17,12 @@ first = (email, password, callback) ->
     .click '#idSIButton9'
     .wait '#dashboard'
     .then ->
-      localStorage.setItem 'isAuth', true
-      localStorage.setItem 'email', email
+      cache.set 'isAuth', true
+      cache.set 'email', email
 
       callback()
 
 usual = (email, callback) ->
-  ooo.start()
-
   nightmare
     .goto 'https://dev.windows.com'
     .click '.msame_TxtTrunc'
@@ -40,7 +35,7 @@ usual = (email, callback) ->
       callback()
 
 auth = (callback) ->
-  if not localStorage.getItem 'isAuth'
+  if not cache.get 'isAuth'
     schema =
       properties:
         email:
@@ -56,7 +51,7 @@ auth = (callback) ->
     prompt.get schema, (err, result) ->
       first result.email, result.password, callback
   else
-    usual localStorage.getItem('email'), callback
+    usual cache.get('email'), callback
 
 # export
 module.exports = auth

@@ -1,73 +1,44 @@
 fs = require 'fs'
 config = require '../config'
+cache = require '../utils/cache'
 nightmare = require '../utils/nightmare'
-ooo = require '../utils/ooo'
 auth = require '../auth'
+
+print = (apps) ->
+  apps = JSON.parse apps # after load we use data directly without cache and JSON.parse, that's why
+
+  for i in apps
+    console.log "#{i.name}, #{i.statusText}, id: #{i.bigId}"
 
 loadList = (callback) ->
   nightmare
-    .goto 'https://dev.windows.com/ru-ru/overview/'
+    .goto 'https://developer.microsoft.com/en-us/overview/'
     .wait '.appName'
     .evaluate ->
       xhr = new XMLHttpRequest()
 
-      xhr.open 'GET', 'https://dev.windows.com/ru-RU/engagementapi/apps', false
+      xhr.open 'GET', 'https://developer.microsoft.com/en-us/engagementapi/apps', false
       xhr.send()
 
       return xhr.responseText
     .then (data) ->
-      fs.writeFile "#{config.tmpPath}/localStorage/apps", data, (err) ->
-        callback()
+      cache.set 'apps', data
 
-printList = (callback) ->
-  fs.readFile "#{config.tmpPath}/localStorage/apps", (err, data) ->
-    if not err
-      ooo.stop()
-
-      l = JSON.parse data.toString 'utf-8'
-
-      for i in l
-        console.log "#{i.name}, #{i.statusText}, id: #{i.bigId}"
-
-      callback()
-    else
-      loadList ->
-        fs.readFile "#{config.tmpPath}/localStorage/apps", (err, data) ->
-          ooo.stop()
-
-          l = JSON.parse data.toString 'utf-8'
-
-          for i in l
-            console.log "#{i.name}, #{i.statusText}, id: #{i.bigId}"
-
-          callback()
+      callback data
 
 list = (callback) ->
-  auth ->
-    printList callback
+  apps = cache.get 'apps'
+
+  if apps
+    print apps
+
+    callback()
+  else
+    auth ->
+      loadList (data) ->
+        print data
+
+        callback()
 
 # export
 module.exports = list
-
-
-
-# loadList = (callback) ->
-#   nightmare
-#     .goto 'https://dev.windows.com/ru-ru/overview/'
-#     .wait '.appName'
-#     .evaluate ->
-#       apps = []
-#       links = document.querySelectorAll '.appMenuItem:not(.addApp):not(.bottomlink)'
-      
-#       for link in links
-#         id = link.href.match(/([A-Za-z0-9]+)\/$/)[1]
-#         title = link.title
-
-#         apps.push { id, title }
-
-#       return apps
-#     .then (data) ->
-#       console.log data
-#       localStorage.setItem 'apps', JSON.stringify data
-
-#       callback()
