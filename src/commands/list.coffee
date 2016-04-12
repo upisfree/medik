@@ -2,7 +2,7 @@ fs = require 'fs'
 config = require '../config'
 cache = require '../utils/cache'
 nightmare = require '../utils/nightmare'
-auth = require '../auth'
+auth = require './auth'
 
 print = (apps) ->
   apps = JSON.parse apps # after load we use data directly without cache and JSON.parse, that's why

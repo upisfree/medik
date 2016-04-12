@@ -1,7 +1,7 @@
 prompt = require 'prompt'
-config = require './config'
-cache = require './utils/cache'
-nightmare = require './utils/nightmare'
+config = require '../config'
+cache = require '../utils/cache'
+nightmare = require '../utils/nightmare'
 
 first = (email, password, callback) ->
   nightmare
