@@ -1,10 +1,14 @@
 # medik
 Manage your Windows apps from command line. Useful for automation or if you afraid GUI.
 
+**Very early development version. May not work, may not stable. Use on your own risk. Please.**
+
+Wanna help? Any questions? Open issuse or write to me: [upisfree@outlook.com](upisfree@outlook.com).
+
 ## Usage
 #### Update an app
 ```bash
-medik update --id="APP_ID"
+medik update --json="JSON_PATH"
 ```
 
 #### Print app list

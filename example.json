@@ -1,7 +1,7 @@
 {
-  "appId": "9NBLGGH0FD6T",
+  "appId": "APP_ID",
   "price": "Free",
   "category": "Travel",
   "subcategory": "CityGuides",
-  "package": "MyWay_Release_AnyCPU.xap"
+  "package": "/full/path/to/package/file.xap"
 }
