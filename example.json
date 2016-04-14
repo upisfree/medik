@@ -1,4 +1,7 @@
 {
   "appId": "9NBLGGH0FD6T",
-  "price": "0.99 USD"
+  "price": "Free",
+  "category": "Travel",
+  "subcategory": "CityGuides",
+  "package": "App.xap"
 }

@@ -1,5 +1,5 @@
 nightmare = require '../../utils/nightmare'
-priceList = require './list/prices'
+priceList = require './lists/prices'
 
 setPrice = (appId, submissionId, price, callback) ->
   if not priceList[price]
