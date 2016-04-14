@@ -17,10 +17,7 @@ terminal = ->
 
         end()
     when 'update'
-      update argv.id, ->
-        end()
-    when 'update'
-      update argv.id, ->
+      update argv.json, ->
         end()
     when 'list'
       list ->

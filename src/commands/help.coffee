@@ -9,12 +9,12 @@ Commands:
   update, list, reset, help
 
 Options:
-  --id
+  --json
 
 Examples:
-  medik update --id="APP_ID"  creates new submission of app in the store
-  medik list                  print list of all your apps
-  medik reset                 delete cache and all medik settings
+  medik update --json="JSON_PATH"  creates new submission of app in the store
+  medik list                       print list of all your apps
+  medik reset                      delete cache and all medik settings
         """
 
   console.log str
