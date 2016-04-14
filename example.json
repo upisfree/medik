@@ -3,5 +3,5 @@
   "price": "Free",
   "category": "Travel",
   "subcategory": "CityGuides",
-  "package": "App.xap"
+  "package": "MyWay_Release_AnyCPU.xap"
 }
