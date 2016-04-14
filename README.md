@@ -3,7 +3,7 @@ Manage your Windows apps from command line. Useful for automation or if you afra
 
 **Very early development version. May not work, may not stable. Use on your own risk. Please.**
 
-Wanna help? Any questions? Open issuse or write to me: [upisfree@outlook.com](upisfree@outlook.com).
+Wanna help? Any questions? Open issuse or write to me: [upisfree@outlook.com](mailto:upisfree@outlook.com).
 
 ## Usage
 #### Update an app
