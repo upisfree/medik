@@ -32,7 +32,6 @@
     "minimist": "^1.2.0",
     "nightmare": "^2.3.0",
     "prompt": "^1.0.0",
-    "request": "^2.70.0",
     "rimraf": "^2.5.2",
     "verror": "^1.6.1"
   }
