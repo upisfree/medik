@@ -118,6 +118,7 @@ id('drop').ondrop = function(e)
 
   log(e.type);
   log('FILE');
+  console.log(e);
   log(typeof e.dataTransfer.files[0]);
   log(e.dataTransfer.files[0].name);
   log(e.dataTransfer.files[0].syze + ' bites');
