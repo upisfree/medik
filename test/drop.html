@@ -117,8 +117,10 @@ id('drop').ondrop = function(e)
   prevent(e);
 
   log(e.type);
-
-  console.log(e.dataTransfer.files);
+  log('FILE');
+  log(e.dataTransfer.files[0].name);
+  log(e.dataTransfer.files[0].syze + ' bites');
+  log(e.dataTransfer.files[0].lastModifiedDate);
 };
     </script>
   </body>
