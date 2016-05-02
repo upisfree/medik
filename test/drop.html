@@ -1,0 +1,125 @@
+<html>
+  <body>
+    <style>
+#drop
+{
+  width: 500px;
+  height: 250px;
+  border: 3px solid #ccc;
+  text-align: center;
+}
+
+#drop.enter
+{
+  border-style: dashed;
+}
+
+#drop span
+{
+  position: relative;
+  top: 44%;
+}
+
+#log
+{
+  width: 500px;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#log span
+{
+  display: block;
+}
+    </style>
+    
+    <div id="drop">
+      <span>drop zone</span>
+    </div>
+    
+    <div id="log">
+      <span>hello there!</span>
+    </div>
+  
+    <script>
+function removeClass(obj, cls)
+{
+  var classes = obj.className.split(' ');
+
+  for (var i = 0; i < classes.length; i++)
+  {
+    if (classes[i] == cls)
+    {
+      classes.splice(i, 1); // удалить класс
+      i--; // (*)
+    }
+  }
+  obj.className = classes.join(' ');
+}
+
+function id(a)
+{
+  return document.getElementById(a);
+}
+
+function log(a)
+{
+  var span = document.createElement('span');
+  span.innerText = a;
+
+  id('log').appendChild(span);
+}
+
+function prevent(e)
+{
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function on(e)
+{
+  prevent(e);
+
+  id('drop').className += 'enter';
+
+  log(e.type);
+}
+
+function off(e)
+{
+  prevent(e);
+
+  removeClass(id('drop'), 'enter');
+
+  log(e.type);
+}
+
+/* ******************* */
+
+id('drop').ondrag = prevent;
+id('drop').ondragstart = prevent;
+id('drop').ondragend = prevent;
+id('drop').ondragover = prevent;
+id('drop').ondragenter = prevent;
+id('drop').ondragleave = prevent;
+id('drop').ondrop = prevent;
+
+id('drop').ondragover = on;
+id('drop').ondragenter = on;
+
+id('drop').ondragleave = off;
+id('drop').ondragend = off;
+id('drop').ondrop = off;
+
+id('drop').ondrop = function(e)
+{
+  prevent(e);
+
+  log(e.type);
+
+  console.log(e.dataTransfer.files);
+};
+    </script>
+  </body>
+</html>
