@@ -3,5 +3,5 @@
   "price": "Free",
   "category": "Travel",
   "subcategory": "CityGuides",
-  "package": "/full/path/to/package/file.xap"
+  "package": "/home/upisfree/MyWay_Release_AnyCPU.xap"
 }
