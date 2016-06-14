@@ -3,11 +3,9 @@ config = require '../config'
 cache = require '../utils/cache'
 nightmare = require '../utils/nightmare'
 
-first = (email, password, callback) ->
+_auth = (email, password, callback) ->
   nightmare
-    .goto 'https://dev.windows.com'
-    .click '.msame_TxtTrunc'
-    .wait '.login_cred_field_container'
+    .goto 'https://developer.microsoft.com/en-us/dashboard/overview'
     .type 'input[type="email"]', email
     .click 'input[type="password"]'
     .wait '#rightTD'
@@ -17,21 +15,11 @@ first = (email, password, callback) ->
     .click '#idSIButton9'
     .wait '#dashboard'
     .then ->
-      cache.set 'isAuth', true
-      cache.set 'email', email
+      if not cache.get 'isAuth'
+        cache.set 'isAuth', true
+        cache.set 'email', email
+        cache.set 'password', password
 
-      callback()
-
-usual = (email, callback) ->
-  nightmare
-    .goto 'https://dev.windows.com'
-    .click '.msame_TxtTrunc'
-    .wait '.login_cred_field_container'
-    .click '.use_another_account'
-    .type 'input[type="email"]', email
-    .click 'input[type="password"]'
-    .wait '#dashboard'
-    .then ->
       callback()
 
 auth = (callback) ->
@@ -49,9 +37,9 @@ auth = (callback) ->
     prompt.start()
 
     prompt.get schema, (err, result) ->
-      first result.email, result.password, callback
+      _auth result.email, result.password, callback
   else
-    usual cache.get('email'), callback
+    _auth cache.get('email'), cache.get('password'), callback
 
 # export
 module.exports = auth
