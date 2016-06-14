@@ -3,5 +3,12 @@
   "price": "Free",
   "category": "Travel",
   "subcategory": "CityGuides",
-  "package": "C:\\Users\\senya\\Desktop\\MyWay_Release_AnyCPU.xap"
+  "package": "C:\\Users\\senya\\Desktop\\MyWay_Release_AnyCPU.xap",
+  "description": {
+    "languageId": 20,
+    "description": "qw嗨，亲爱的，你怎הי, ליב, ווי זענען איר טאן עפּעס איר האָבן?么做你有吗？ertyuiop[sdfghjkl;zxcvbnm,..,mnbvامرحبا، يا عزيزي، كيف حالك شيء لديك؟ة",
+    "releaseNotes": "DFJDSF הי, ליב, ווי זענען איר טאן עפּעס איר האָבן?RUFJJFJFJFJFJJFJJF",
+    "website": "http://test.com",
+    "supportContact": "http://test.com"
+  }
 }
