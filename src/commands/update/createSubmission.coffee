@@ -19,9 +19,9 @@ createSubmission = (id, callback) ->
       return xhr.response
     , params
     .then (data) ->
-      data = JSON.parse data
+      submissionId = JSON.parse(data).RedirectUrl.match(/\/([0-9]+)$/)[1]
 
-      callback data.AppId, data.InProgressSubmission.Id
+      callback submissionId
 
 # export
 module.exports = createSubmission
