@@ -33,11 +33,15 @@ setDescription = (appId, submissionId, languageId, params, callback) ->
   else
     console.log 'Check, is your support contact too long or is this *realy* URL? Or email???'
 
-  console.log supportContact
+  # privacyPolicy
+  if params.privacyPolicy? and params.privacyPolicy.length < 2048 and isUrl.test params.privacyPolicy
+    privacyPolicy = params.privacyPolicy
+  else
+    console.log 'Check, is your privacy policy url too long or is this *realy* URL?'
 
   nightmare
     .goto "https://developer.microsoft.com/en-us/dashboard/apps/#{appId}/submissions/#{submissionId}/Listings?languageId=#{languageId}"
-    .evaluate (description, releaseNotes, website, supportContact) ->
+    .evaluate (description, releaseNotes, website, supportContact, privacyPolicy) ->
       if description?
         document.querySelector('textarea[name="ListingModels[0].Listing.Description"]').value = description
 
@@ -50,7 +54,10 @@ setDescription = (appId, submissionId, languageId, params, callback) ->
       if supportContact?
         document.querySelector('input[name="AppListing.SupportContact"]').value = supportContact
 
-    , description, releaseNotes, website, supportContact
+      if privacyPolicy?
+        document.querySelector('input[name="AppListing.PrivatePolicyUrl"]').value = privacyPolicy
+
+    , description, releaseNotes, website, supportContact, privacyPolicy
     .click '.page-bottom-buttons button[data-command="save"]'
     .then ->
       callback()
