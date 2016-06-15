@@ -5,8 +5,8 @@
 
 nightmare = require '../../utils/nightmare'
 
-isUrl = new RegExp '(http|ftp|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?'
-isEmail = new RegExp '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+isUrl = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
+isEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 setDescription = (appId, submissionId, languageId, params, callback) ->
   # description
@@ -22,16 +22,18 @@ setDescription = (appId, submissionId, languageId, params, callback) ->
     console.log 'So long release notes... It must be shorter than 1.5k symbols.'
 
   # website
-  if params.website? and params.website.length < 2048 and params.website.match isUrl
+  if params.website? and params.website.length < 2048 and isUrl.test params.website
     website = params.website
   else
     console.log 'Check, is your URL too long or is this *realy* URL?'
 
   # supportContact
-  if params.supportContact? and params.supportContact.length < 2048 and (params.supportContact.match(isUrl) or params.supportContact.match(isEmail))
-    supportContact = supportContact.website
+  if params.supportContact? and params.supportContact.length < 2048 and (isUrl.test(params.supportContact) or isEmail.test(params.supportContact))
+    supportContact = params.supportContact
   else
     console.log 'Check, is your support contact too long or is this *realy* URL? Or email???'
+
+  console.log supportContact
 
   nightmare
     .goto "https://developer.microsoft.com/en-us/dashboard/apps/#{appId}/submissions/#{submissionId}/Listings?languageId=#{languageId}"
@@ -43,10 +45,10 @@ setDescription = (appId, submissionId, languageId, params, callback) ->
         document.querySelector('textarea[name="ListingModels[0].Listing.ReleaseNotes"]').value = releaseNotes
 
       if website?
-        document.querySelector('textarea[name="AppListing.WebsiteUrl"]').value = website
+        document.querySelector('input[name="AppListing.WebsiteUrl"]').value = website
 
       if supportContact?
-        document.querySelector('textarea[name="AppListing.SupportContact"]').value = supportContact
+        document.querySelector('input[name="AppListing.SupportContact"]').value = supportContact
 
     , description, releaseNotes, website, supportContact
     .click '.page-bottom-buttons button[data-command="save"]'

@@ -8,7 +8,7 @@ uploadPackage = require './update/uploadPackage'
 
 currents = 
   appId: '9NBLGGH0FD6T'
-  submissionId: '1152921504625329878'
+  submissionId: '1152921504625334560'
 
 update = (jsonPath, callback) ->
   json = JSON.parse fs.readFileSync jsonPath
