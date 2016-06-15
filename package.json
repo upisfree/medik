@@ -33,6 +33,7 @@
     "nightmare": "^2.3.0",
     "prompt": "^1.0.0",
     "rimraf": "^2.5.2",
-    "verror": "^1.6.1"
+    "verror": "^1.6.1",
+    "xregexp": "^3.1.1"
   }
 }

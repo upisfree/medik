@@ -1,4 +1,17 @@
 nightmare = require '../../utils/nightmare'
+XRegExp = require 'xregexp'
+
+# regexp from Microsoft dev center Js sources and comment from there
+# 
+# Defines a regular expression pattern, using unicode character class notation, which matches a single 'word'. See additional comments. */
+# The xregexp library is needed to fill in support for unicode regular expressions (should be in ES6). The following classes are used:
+# \p{L} or \p{Letter}: any kind of letter from any language
+# \p{M} or \p{Mark}: a character intended to be combined with another character (e.g. accents, umlauts, enclosing boxes, etc.)
+# \p{Pc} or \p{Connector_Punctuation}: a punctuation character such as an underscore that connects words
+# \p{Nd} or \p{Decimal_Digit_Number}: a digit zero through nine in any script except ideographic scripts
+# \p{Cf} or \p{Format}: invisible formatting indicator
+# PLUS, explicit characters: apostrophe
+isWord = new XRegExp "[\\p{L}\\p{M}\\p{Pc}\\p{Nd}\\p{Cf}']+", 'g'
 
 isUrl = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i
 isEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -48,6 +61,21 @@ setDescription = (appId, submissionId, languageId, input, callback) ->
   else
     console.log 'Too much recommended hardware! Up to 11.'
 
+  # keywords
+  if input.keywords? and input.keywords.length <= 7
+    output.keywords = []
+
+    for i in [0...7]
+      if input.keywords[i]? and input.keywords[i].match(isWord).length <= 3 and input.keywords[i].length <= 45 # no more 3 words in keyword and shorten than 45 symbols
+        output.keywords.push input.keywords[i]
+      else
+        output.keywords.push null
+
+        if input.keywords[i]? # no future, no log
+          console.log "Something wrong with keyword \##{i + 1}, check it."
+  else
+    console.log 'Too much keywords! Up to 7.'
+
   # trademark
   if input.trademark? and input.trademark.length <= 200
     output.trademark = input.trademark
@@ -94,6 +122,10 @@ setDescription = (appId, submissionId, languageId, input, callback) ->
       if output.hardware?
         for i in [0...11]
           document.querySelector("input[name=\"ListingModels[0].Listing.HardwareNotes.RecommendedHardwareNotesList[#{i}]\"]").value = output.hardware[i]
+
+      if output.keywords?
+        for i in [0...11]
+          document.querySelector("input[name=\"AppListing.Keywords[#{i}]\"]").value = output.keywords[i]
 
       if output.trademark?
         document.querySelector('input[name="AppListing.Trademark"]').value = output.trademark
