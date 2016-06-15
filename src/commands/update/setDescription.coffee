@@ -33,6 +33,21 @@ setDescription = (appId, submissionId, languageId, input, callback) ->
   else
     console.log 'Too much app features! Up to 20.'
 
+  # hardware
+  if input.hardware? and input.hardware.length <= 11
+    output.hardware = []
+
+    for i in [0...11]
+      if input.hardware[i]? and input.hardware[i].length <= 200
+        output.hardware.push input.hardware[i]
+      else
+        output.hardware.push null
+
+        if input.hardware[i]? # no future, no log
+          console.log "So long recommended hardware \##{i + 1}! It must be shorter than 200 symbols."
+  else
+    console.log 'Too much recommended hardware! Up to 11.'
+
   # trademark
   if input.trademark? and input.trademark.length <= 200
     output.trademark = input.trademark
@@ -75,6 +90,10 @@ setDescription = (appId, submissionId, languageId, input, callback) ->
       if output.features?
         for i in [0...20]
           document.querySelector("input[name=\"ListingModels[0].Listing.Features[#{i}]\"]").value = output.features[i]
+
+      if output.hardware?
+        for i in [0...11]
+          document.querySelector("input[name=\"ListingModels[0].Listing.HardwareNotes.RecommendedHardwareNotesList[#{i}]\"]").value = output.hardware[i]
 
       if output.trademark?
         document.querySelector('input[name="AppListing.Trademark"]').value = output.trademark
