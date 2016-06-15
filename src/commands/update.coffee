@@ -14,15 +14,14 @@ update = (jsonPath, callback) ->
   json = JSON.parse fs.readFileSync jsonPath
 
   auth ->
-    # createSubmission json.appId, (submissionId) ->
-      # uploadPackage json.appId, submissionId, json.package, ->
-      #   console.log 'App updated!'
+    uploadPackage currents.appId, currents.submissionId, json.package, ->
+      console.log 'App updated!'
 
     # setPrice currents.appId, currents.submissionId, json.price, ->
     #   setDescription currents.appId, currents.submissionId, json.description, ->
 
-    setDescription currents.appId, currents.submissionId, json.description.languageId, json.description, ->
-      console.log 'done)))0'
+    # setDescription currents.appId, currents.submissionId, json.description.languageId, json.description, ->
+    #   console.log 'done)))0'
 
 # export
 module.exports = update

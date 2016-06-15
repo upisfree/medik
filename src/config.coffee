@@ -1,6 +1,5 @@
 config =
-  tmpPath: "#{process.env['HOME']}\\.medik" # windows way
-  # tmpPath: "#{process.env['HOME']}/.medik" # linux way
+  tmpPath: "#{process.env['HOME']}/.medik"
   isLogEnable: true
 
 # export
