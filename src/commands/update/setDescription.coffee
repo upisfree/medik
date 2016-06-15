@@ -124,7 +124,7 @@ setDescription = (appId, submissionId, languageId, input, callback) ->
           document.querySelector("input[name=\"ListingModels[0].Listing.HardwareNotes.RecommendedHardwareNotesList[#{i}]\"]").value = output.hardware[i]
 
       if output.keywords?
-        for i in [0...11]
+        for i in [0...7]
           document.querySelector("input[name=\"AppListing.Keywords[#{i}]\"]").value = output.keywords[i]
 
       if output.trademark?
