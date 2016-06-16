@@ -1,5 +1,5 @@
-nightmare = require '../../utils/nightmare'
-objectToQueryString = require '../../utils/objectToQueryString'
+nightmare = require '../../../utils/nightmare'
+objectToQueryString = require '../../../utils/objectToQueryString'
 
 deleteSubmission = (appId, submissionId, callback) ->
   params = objectToQueryString { appId: appId, submissionId: submissionId }

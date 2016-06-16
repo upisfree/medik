@@ -1,5 +1,5 @@
-nightmare = require '../../utils/nightmare'
-objectToQueryString = require '../../utils/objectToQueryString'
+nightmare = require '../../../utils/nightmare'
+objectToQueryString = require '../../../utils/objectToQueryString'
 
 createSubmission = (id, callback) ->
   params = objectToQueryString { appId: id }
